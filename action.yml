@@ -24,5 +24,5 @@ runs:
       run: echo ::set-output name=modified::$(if git status -s; then echo "true"; else echo "false"; fi)
       shell: bash
     - name: Commit changes
-      run: $GITHUB_ACTION_PATH/script.sh '${{steps.git-check.outputs.modified}}' '${{inputs.user-name}}' '${{inputs.user-email}}' '$GITHUB_WORKFLOW'
+      run: $GITHUB_ACTION_PATH/git-push.sh '${{steps.git-check.outputs.modified}}' '${{inputs.user-name}}' '${{inputs.user-email}}' '$GITHUB_WORKFLOW'
       shell: bash
