@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: ll
+      - run: ls
         shell: bash
       - name: Remove test file
         run: rm -r testfile
