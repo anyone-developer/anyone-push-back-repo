@@ -10,23 +10,35 @@ on:
       - main
     types: [opened, edited, ready_for_review, reopened, synchronize]
 jobs:
-  test-file:
+  create-test-file:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Check for modified files
-        id: git-check
-        run: echo ::set-output name=modified::$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)
-      - name: Remove test file
-        if: steps.git-check.outputs.modified == 'true'
-        run: rm -f testfile
-        shell: bash
       - name: Generate test file
-        if: steps.git-check.outputs.modified == 'true'
         run: date +%s > testfile
         shell: bash
       - name: Push changes to remote
-        if: steps.git-check.outputs.modified == 'true'
         id: create-push-change
         uses: anyone-developer/anyone-push-back-repo@develop
+  remove-test-file:
+    needs: create-test-file
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Checkout ${{github.head_ref}} branch
+        run: |
+          git fetch
+          git checkout ${{github.head_ref}}
+          git pull
+        shell: bash
+      - name: Remove test file
+        run: rm -f testfile
+        shell: bash
+      - name: Push changes to remote
+        id: delete-push-change
+        uses: anyone-developer/anyone-push-back-repo@develop
       
+      
+
+
+
