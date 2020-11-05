@@ -15,24 +15,26 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Generate test file
-        run: date +%s > testfile
+        run: touch testfile && date +%s > testfile
+        shell: bash
+      - run: ll && ls
         shell: bash
       - name: Push changes to remote
         id: create-push-change
         uses: anyone-developer/anyone-push-back-repo@develop
       - run: echo "create push change modified:${{steps.create-push-change.outputs.modified}}"
-  remove-test-file:
-    needs: create-test-file
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Remove test file
-        run: rm -r testfile
-        shell: bash
-      - name: Push changes to remote
-        id: delete-push-change
-        uses: anyone-developer/anyone-push-back-repo@develop
-      - run: echo "delete push change-modified:${{steps.delete-push-change.outputs.modified}}"
+  # remove-test-file:
+  #   needs: create-test-file
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Remove test file
+  #       run: rm -r testfile
+  #       shell: bash
+  #     - name: Push changes to remote
+  #       id: delete-push-change
+  #       uses: anyone-developer/anyone-push-back-repo@develop
+  #     - run: echo "delete push change-modified:${{steps.delete-push-change.outputs.modified}}"
       
       
 
