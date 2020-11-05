@@ -1,29 +1,31 @@
-name: 'anyone-push-back-repo'
-author: 'Zhang Nan (zhang_nan_163@163.com)'
+name: "anyone-push-back-repo"
+author: "Zhang Nan (zhang_nan_163@163.com)"
 branding:
   icon: git-commit
   color: green
-description: 'This action help you push back to pull request when user made changes in action. Then use this action to push back to your repo'
+description: "This action help you push back to pull request when user made changes in action. Then use this action to push back to your repo"
 inputs:
-  user-name:  
-    description: 'commit config user.name'
+  user-name:
+    description: "commit config user.name"
     required: false
-    default: 'anyone-developer'
-  user-email:  
-    description: 'commit config user.email'
+    default: "anyone-developer"
+  user-email:
+    description: "commit config user.email"
     required: false
-    default: 'zhang_nan_163@163.com'
+    default: "zhang_nan_163@163.com"
 outputs:
   modified:
     description: 'modified flag "true" or "false"'
+    value: ${{ steps.test.outputs.modified }}
 runs:
-  using: 'composite'
-  steps: 
+  using: "composite"
+  steps:
     - name: Check modification
       id: git-check
       run: echo ::set-output name=modified::$(if git status -s; then echo "true"; else echo "false"; fi)
       shell: bash
     - name: Display for debugging
+      id: test
       run: 'echo ::set-output name=modified::"${{steps.git-check.outputs.modified}} - ${{inputs.user-name}} - ${{inputs.user-email}} - $GITHUB_WORKFLOW"'
       shell: bash
     # - name: Grant execution permission
