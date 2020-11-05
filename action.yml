@@ -1,0 +1,28 @@
+name: 'anyone-push-back-repo'
+author: 'Zhang Nan (zhang_nan_163@163.com)'
+branding:
+  icon: git-commit
+  color: green
+description: 'This action help you push back to pull request when user made changes in action. Then use this action to push back to your repo'
+inputs:
+  user-name:  
+    description: 'commit config user.name'
+    required: false
+    default: 'anyone-developer'
+  user-email:  
+    description: 'commit config user.email'
+    required: false
+    default: 'zhang_nan_163@163.com'
+outputs:
+  modified:
+    description: 'modified flag "true" or "false"'
+runs:
+  using: 'composite'
+  steps: 
+    - name: Check modification
+      id: git-check
+      run: echo ::set-output name=modified::$(if git status -s; then echo "true"; else echo "false"; fi)
+      shell: bash
+    - name: Commit changes
+      run: $GITHUB_ACTION_PATH/script.sh '${{steps.git-check.outputs.modified}}' '${{inputs.user-name}}' '${{inputs.user-email}}' '$GITHUB_WORKFLOW'
+      shell: bash
