@@ -17,7 +17,7 @@ jobs:
       - name: Generate test file
         run: touch testfile && date +%s > testfile
         shell: bash
-      - run: ll && ls
+      - run: ls
         shell: bash
       - name: Push changes to remote
         id: create-push-change
