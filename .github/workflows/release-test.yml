@@ -25,10 +25,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: ls
+      - name: Checkout ${{github.head_ref}} branch
+        run: |
+          git fetch
+          git checkout ${{github.head_ref}}
+          git pull
         shell: bash
       - name: Remove test file
-        run: rm -r testfile
+        run: rm -f testfile
         shell: bash
       - name: Push changes to remote
         id: delete-push-change

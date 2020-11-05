@@ -28,5 +28,5 @@ runs:
       run: chmod +x $GITHUB_ACTION_PATH/git-push.sh
       shell: bash
     - name: Commit changes
-      run: $GITHUB_ACTION_PATH/git-push.sh ${{steps.git-check.outputs.modified}} ${{inputs.user-name}} ${{inputs.user-email}} ${{github.workflow}} ${{github.run_number}} ${{github.head_ref}}
+      run: $GITHUB_ACTION_PATH/git-push.sh ${{steps.git-check.outputs.modified}} ${{github.actor}} ${{github.workflow}} ${{github.run_number}} ${{github.head_ref}}
       shell: bash
