@@ -29,4 +29,4 @@ runs:
       shell: bash
     - name: Commit changes
       run: $GITHUB_ACTION_PATH/git-push.sh ${{steps.git-check.outputs.modified}} ${{inputs.user-name}} ${{inputs.user-email}} $GITHUB_WORKFLOW GITHUB_RUN_NUMBER
-      shell: sh
+      shell: bash

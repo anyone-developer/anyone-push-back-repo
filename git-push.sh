@@ -1,3 +1,5 @@
+#!/bin/bash
+
 if [[ $1 == 1 ]]; then
   git config --local user.name $2
   git config --local user.email $3
