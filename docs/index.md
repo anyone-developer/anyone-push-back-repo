@@ -15,17 +15,9 @@ Before you use this action, you should use **actions/checkout@v2** to checkout y
 
 ## Inputs
 
-### `user-name`
+### `strategy-option`
 
-commit config user.name
-
-### `user-email`
-
-commit config user.email
-
-### `ignore-directories`
-
-the directories you want to ignore. split with comma.
+action will rebase to target branch with specific strategy. usually will use -X<strategy-option>. default is 'ours'. Please reference here: https://www.atlassian.com/git/tutorials/using-branches/merge-strategy
 
 ## Outputs
 
@@ -38,8 +30,7 @@ modified flag 1 as "true" or 0 as "false"
 ```yml
 uses: anyone-developer/anyone-push-back-repo@main
 with:
-  user-name: 'anyone-developer'
-  user-email: 'zhang_nan_163@163.com'
+  strategy-option: 'theirs'
 ```
 
 ## Donation

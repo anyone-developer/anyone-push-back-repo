@@ -32,7 +32,7 @@ jobs:
           git pull
         shell: bash
       - name: Remove test file
-        run: rm -f testfile
+        run: rm testfile
         shell: bash
       - name: Push changes to remote
         id: delete-push-change
