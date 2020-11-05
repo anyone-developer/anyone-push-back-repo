@@ -31,7 +31,7 @@ the directories you want to ignore. split with comma.
 
 ### `modified`
 
-modified flag "true" or "false"
+modified flag 1 as "true" or 0 as "false"
 
 ## Example usage
 

@@ -15,18 +15,18 @@ inputs:
     default: "zhang_nan_163@163.com"
 outputs:
   modified:
-    description: 'modified flag "true" or "false"'
+    description: 'modified flag 1 as "true" or 0 as "false"'
     value: ${{ steps.git-check.outputs.modified }}
 runs:
   using: "composite"
   steps:
     - name: Check modification
       id: git-check
-      run: echo ::set-output name=modified::$(if [[ "$(git status -s)" == '' ]]; then echo "false"; else echo "true"; fi)
+      run: echo ::set-output name=modified::$(if [[ "$(git status -s)" == '' ]]; then echo 0; else echo 1; fi)
       shell: bash
     - name: Grant execution permission
       run: chmod +x $GITHUB_ACTION_PATH/git-push.sh
       shell: bash
     - name: Commit changes
-      run: $GITHUB_ACTION_PATH/git-push.sh '${{steps.git-check.outputs.modified}}' '${{inputs.user-name}}' '${{inputs.user-email}}' '$GITHUB_WORKFLOW' 'GITHUB_RUN_NUMBER'
+      run: $GITHUB_ACTION_PATH/git-push.sh ${{steps.git-check.outputs.modified}} ${{inputs.user-name}} ${{inputs.user-email}} $GITHUB_WORKFLOW GITHUB_RUN_NUMBER
       shell: sh
