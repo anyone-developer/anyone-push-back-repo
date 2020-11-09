@@ -1,6 +1,7 @@
 # anyone-push-back-repo
 
-![release-test](https://github.com/anyone-developer/anyone-push-back-repo/workflows/release-test/badge.svg)
+![test-create-file](https://github.com/anyone-developer/anyone-push-back-repo/workflows/test-create-file/badge.svg)
+![test-delete-file](https://github.com/anyone-developer/anyone-push-back-repo/workflows/test-delete-file/badge.svg)
 ![license](https://badgen.net/github/license/anyone-developer/anyone-push-back-repo)
 
 This action helps you push back to pull requests when the user made changes in action. Then use this action to push back to your repo. The action will check modification if the current branch had staged files or unstaged files. Then decide to push a commit.

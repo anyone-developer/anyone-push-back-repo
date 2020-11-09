@@ -1,4 +1,4 @@
-name: release-test-delete-file
+name: test-delete-file
 on:
   schedule:
     - cron: "0 21 * * *"
