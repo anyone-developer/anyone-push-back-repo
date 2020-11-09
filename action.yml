@@ -3,7 +3,7 @@ author: "Zhang Nan (zhang_nan_163@163.com)"
 branding:
   icon: git-commit
   color: green
-description: "This action help you push back to pull request when user made changes in action. Then use this action to push back to your repo"
+description: "This action help you push back to pull request when user made changes in action. Then use it to push back to your repo"
 inputs:
   strategy-option:
     description: "action will rebase to target branch with specific strategy. usually will use -X<strategy-option>. default is 'ours'. Please reference here: https://www.atlassian.com/git/tutorials/using-branches/merge-strategy"
