@@ -1,7 +1,7 @@
 name: release-test
 on:
   schedule:
-    - cron: "0 9 * * *"
+    - cron: "0 21 * * *"
   push:
     branches:
       - main
@@ -10,16 +10,6 @@ on:
       - main
     types: [opened, edited, ready_for_review, reopened, synchronize]
 jobs:
-  create-test-file:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Generate test file
-        run: date +%s > testfile
-        shell: bash
-      - name: Push changes to remote
-        id: create-push-change
-        uses: anyone-developer/anyone-push-back-repo@develop
   remove-test-file:
     needs: create-test-file
     runs-on: ubuntu-latest
