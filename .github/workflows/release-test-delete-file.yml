@@ -1,14 +1,7 @@
-name: release-test
+name: release-test-delete-file
 on:
   schedule:
     - cron: "0 21 * * *"
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-    types: [opened, edited, ready_for_review, reopened, synchronize]
 jobs:
   remove-test-file:
     needs: create-test-file
