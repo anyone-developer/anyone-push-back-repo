@@ -1,0 +1,28 @@
+name: "anyone-push-back-repo"
+author: "Zhang Nan (zhang_nan_163@163.com)"
+branding:
+  icon: git-commit
+  color: green
+description: "This action help you push back to pull request when user made changes in action. Then use this action to push back to your repo"
+inputs:
+  strategy-option:
+    description: "action will rebase to target branch with specific strategy. usually will use -X<strategy-option>. default is 'ours'. Please reference here: https://www.atlassian.com/git/tutorials/using-branches/merge-strategy"
+    required: false
+    default: "ours"
+outputs:
+  modified:
+    description: 'modified flag 1 as "true" or 0 as "false"'
+    value: ${{ steps.git-check.outputs.modified }}
+runs:
+  using: "composite"
+  steps:
+    - name: Check modification
+      id: git-check
+      run: echo ::set-output name=modified::$(if [[ "$(git status -s)" == '' ]]; then echo 0; else echo 1; fi)
+      shell: bash
+    - name: Grant execution permission
+      run: chmod +x $GITHUB_ACTION_PATH/git-push.sh
+      shell: bash
+    - name: Commit changes
+      run: $GITHUB_ACTION_PATH/git-push.sh ${{steps.git-check.outputs.modified}} ${{github.actor}} ${{github.workflow}} ${{github.run_number}} ${{github.head_ref}} ${{github.base_ref}} ${{github.event.inputs.strategy-option}}
+      shell: bash
