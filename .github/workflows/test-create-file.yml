@@ -12,4 +12,4 @@ jobs:
         shell: bash
       - name: Push changes to remote
         id: create-push-change
-        uses: anyone-developer/anyone-push-back-repo@develop
+        uses: anyone-developer/anyone-push-back-repo@main
