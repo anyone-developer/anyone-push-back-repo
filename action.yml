@@ -23,6 +23,15 @@ runs:
     - name: Grant execution permission
       run: chmod +x $GITHUB_ACTION_PATH/git-push.sh
       shell: bash
+    - name: Prepare GPG keygen
+      run: | 
+        sed 's/<$NAME>/${{github.actor}}/g' genkey | 
+        sed 's/<$EMAIL>/${{github.actor}}@users.noreply.github.com/g' | 
+        sed 's/<$PASSPHRASE>/${{ secrets.GITHUB_TOKEN }}/g' | 
+        gpg --gen-key --batch |
+        grep 'gpg: key' |
+        gpgkey=`awk '{print $3}'`
+      shell: bash
     - name: Commit changes
-      run: $GITHUB_ACTION_PATH/git-push.sh ${{steps.git-check.outputs.modified}} ${{github.actor}} ${{github.workflow}} ${{github.run_number}} ${{github.head_ref}} ${{github.base_ref}} ${{github.event.inputs.strategy-option}}
+      run: $GITHUB_ACTION_PATH/git-push.sh ${{steps.git-check.outputs.modified}} ${{github.actor}} ${{github.workflow}} ${{github.run_number}} ${{github.head_ref}} ${{github.base_ref}} ${{github.event.inputs.strategy-option}} $gpgkey
       shell: bash
