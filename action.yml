@@ -12,11 +12,11 @@ inputs:
   actor:
     description: "commiter username. default will retrieve from actor environment variable"
     required: false
-    default: ${{github.actor}}
+    default: ${{ github.actor }}
   actor-email:
     description: "committer email. defail will use `actor`@users.noreply.github.com"
     required: false
-    default: ${{github.actor}}@users.noreply.github.com
+    default: ${{ github.actor }}@users.noreply.github.com
 outputs:
   modified:
     description: 'modified flag 1 as "true" or 0 as "false"'
@@ -29,8 +29,8 @@ runs:
       run: echo ::set-output name=modified::$(if [[ "$(git status -s)" == '' ]]; then echo 0; else echo 1; fi)
       shell: bash
     - name: Grant execution permission
-      run: chmod +x $GITHUB_ACTION_PATH/git-push.sh
+      run: chmod +x ${{ github.action_path }}/git-push.sh
       shell: bash
     - name: Commit changes
-      run: $GITHUB_ACTION_PATH/git-push.sh ${{steps.git-check.outputs.modified}} ${{github.event.inputs.actor}} ${{github.event.inputs.actor-email}} ${{github.workflow}} ${{github.run_number}} ${{github.head_ref}} ${{github.base_ref}} ${{github.event.inputs.strategy-option}}
+      run: ${{ github.action_path }}/git-push.sh ${{ steps.git-check.outputs.modified }} ${{ inputs.actor }} ${{ inputs.actor-email }} ${{github.head_ref}} ${{github.base_ref}} ${{ inputs.strategy-option}} ${{ github.workflow }} ${{ github.run_number }}
       shell: bash
