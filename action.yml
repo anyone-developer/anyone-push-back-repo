@@ -10,11 +10,11 @@ inputs:
     required: false
     default: "ours"
   actor:
-    description: "commiter username. default will retrieve from ${{github.actor}}"
+    description: "commiter username. default will retrieve from actor environment variable"
     required: false
     default: ${{github.actor}}
   actor-email:
-    description: "committer email. defail will use ${{github.actor}}@users.noreply.github.com"
+    description: "committer email. defail will use `actor`@users.noreply.github.com"
     required: false
     default: ${{github.actor}}@users.noreply.github.com
 outputs:
