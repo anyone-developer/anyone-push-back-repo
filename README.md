@@ -30,6 +30,14 @@ Important: If you have other pull request checks besides the following workflow 
 
 action will rebase to target branch with a specific strategy. usually will use -X<strategy-option>. default is 'ours'. Please reference here: https://www.atlassian.com/git/tutorials/using-branches/merge-strategy
 
+### `actor`
+
+commiter username. default will retrieve from ${{github.actor}}
+
+### `actor-email`
+
+committer email. defail will use ${{github.actor}}@users.noreply.github.com
+
 ## Outputs
 
 ### `modified`
@@ -42,6 +50,8 @@ modified flag 1 as "true" or 0 as "false"
 uses: anyone-developer/anyone-push-back-repo@main
 with:
   strategy-option: 'theirs'
+  actor: 'Edward-Roshan'
+  actor-email: 'zhang_nan_163@163.com'
 ```
 
 ## Donation
