@@ -6,7 +6,7 @@ if [[ $1 == 1 ]]; then
   
   git fetch
 
-  if [[ $4 == 0]] || [[ $5 == 0 ]]; then
+  if [[ $4 == 0 ]] || [[ $5 == 0 ]]; then
     git add .
     git commit -a -m "Automated push for workflow: [$8/#$9]"
     git push origin $6
