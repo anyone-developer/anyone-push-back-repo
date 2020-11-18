@@ -32,5 +32,14 @@ runs:
       run: chmod +x ${{ github.action_path }}/git-push.sh
       shell: bash
     - name: Commit changes
-      run: ${{ github.action_path }}/git-push.sh ${{ steps.git-check.outputs.modified }} ${{ inputs.actor }} ${{ inputs.actor-email }} ${{github.head_ref}} ${{github.base_ref}} ${{ inputs.strategy-option}} ${{ github.workflow }} ${{ github.run_number }}
+      run: ${{ github.action_path }}/git-push.sh \
+        ${{ steps.git-check.outputs.modified }} \
+        ${{ inputs.actor }} \
+        ${{ inputs.actor-email }} \
+        $(if [[ "${{github.head_ref}}" == '' ]]; then 0; else ${{github.head_ref}}; fi) \
+        $(if [[ "${{github.base_ref}}" == '' ]]; then 0; else ${{github.base_ref}}; fi) \
+        $(if [[ "${{github.ref}}" == '' ]]; then 0; else ${{github.ref}}; fi) \
+        ${{ inputs.strategy-option}} \
+        ${{ github.workflow }} \
+        ${{ github.run_number }}
       shell: bash
