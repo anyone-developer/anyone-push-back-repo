@@ -10,14 +10,15 @@ if [[ $1 == 1 ]]; then
   git fetch
 
   if [[ $4 == 0 ]] || [[ $5 == 0 ]]; then
-    echo "[INFO] checkout branch:" $6
-    git checkout $6
-    echo "[INFO] pull --ff-only from origin" $6
-    git pull --ff-only origin $6
+    branch=$(echo $6 | cut -d "/" -f 3)
+    echo "[INFO] checkout branch:" $branch
+    git checkout $branch
+    echo "[INFO] pull --ff-only from origin" $branch
+    git pull --ff-only origin $branch
     git add .
     git commit -a -m "Automated push for workflow: [$8/#$9]"
-    echo "[INFO] push to:" $6
-    git push origin $6
+    echo "[INFO] push to:" $branch
+    git push origin $branch
   else
     echo "[INFO] checkout branch:" $4
     git checkout $4
