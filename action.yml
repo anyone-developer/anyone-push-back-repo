@@ -36,9 +36,9 @@ runs:
         ${{ steps.git-check.outputs.modified }} \
         ${{ inputs.actor }} \
         ${{ inputs.actor-email }} \
-        $(if [[ "${{github.head_ref}}" == '' ]]; then 0; else ${{github.head_ref}}; fi) \
-        $(if [[ "${{github.base_ref}}" == '' ]]; then 0; else ${{github.base_ref}}; fi) \
-        $(if [[ "${{github.ref}}" == '' ]]; then 0; else ${{github.ref}}; fi) \
+        $(if [[ "${{github.head_ref}}" == '' ]]; then echo 0; else echo "${{github.head_ref}}"; fi) \
+        $(if [[ "${{github.base_ref}}" == '' ]]; then echo 0; else echo "${{github.base_ref}}"; fi) \
+        $(if [[ "${{github.ref}}" == '' ]]; then echo 0; else echo "${{github.ref}}"; fi) \
         ${{ inputs.strategy-option}} \
         ${{ github.workflow }} \
         ${{ github.run_number }}
