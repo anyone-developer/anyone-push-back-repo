@@ -1,35 +1,43 @@
 #!/bin/bash
 
-if [[ $1 == 1 ]]; then
-  echo "[INFO] set user.name to:" $2
-  git config --local user.name $2
-  echo "[INFO] set user.email to:" $3
-  git config --local user.email $3
+. ./git-status.sh
+
+print=`GET_GIT_STATUS`
+modified=$?
+
+echo "$print"
+echo ::set-output name=modified::$modified #set output
+
+if [[ $modified != 0 ]]; then
+  echo "[INFO] set user.name to: $1"
+  git config --local user.name $1
+  echo "[INFO] set user.email to: $2"
+  git config --local user.email $2
   
   echo "[INFO] ready to git fetch"
   git fetch
 
-  if [[ $4 == 0 ]] || [[ $5 == 0 ]]; then
-    branch=$(echo $6 | cut -d "/" -f 3)
-    echo "[INFO] checkout branch:" $branch
-    git checkout $branch
-    echo "[INFO] pull --ff-only from origin" $branch
-    git pull --ff-only origin $branch
-    git add .
-    git commit -a -m "Automated push for workflow: [$8/#$9]"
-    echo "[INFO] push to:" $branch
-    git push origin $branch
-  else
-    echo "[INFO] checkout branch:" $4
-    git checkout $4
-    echo "[INFO] pull --ff-only from origin" $4
-    git pull --ff-only origin $4
-    echo "[INFO] rebase from" $5 "with strategy" $7
-    git rebase $5 -X $7
-    git add .
-    git commit -a -m "Automated push for workflow: [$8/#$9]"
-    echo "[INFO] push to:" $4
-    git push origin $4
+  branch=$(echo $5 | cut -d "/" -f 3) #direct to push
+
+  if [[ $3 != "" ]] && [[ $4 != "" ]]; then
+    branch=$3 #pull request source branch, will rebase to target branch
   fi
 
+  echo "[INFO] checkout branch: $branch"
+  git checkout $branch
+
+  echo "[INFO] pull --ff-only from origin $branch"
+  git pull --ff-only origin $branch
+
+  if [[ $3 != "" ]] && [[ $4 != "" ]]; then
+    echo "[INFO] rebase from $4 with strategy $6"
+    git rebase $4 -X $6
+  fi
+
+  git add .
+  git commit -a -m "Automated push for workflow: [$7/#$8]"
+  echo "[INFO] push to: $3"
+  git push origin $3
 fi
+
+exit 0

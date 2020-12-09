@@ -20,17 +20,16 @@ inputs:
 outputs:
   modified:
     description: 'modified flag 1 as "true" or 0 as "false"'
-    value: ${{ steps.git-check.outputs.modified }}
+    value: ${{ steps.committer.outputs.modified }}
 runs:
   using: "composite"
   steps:
-    - name: Check modification
-      id: git-check
-      run: echo ::set-output name=modified::$(if [[ "$(git status -s)" == '' ]]; then echo 0; else echo 1; fi)
-      shell: bash
     - name: Grant execution permission
-      run: chmod +x ${{ github.action_path }}/git-push.sh
+      run: |
+        chmod +x ${{ github.action_path }}/git-status.sh
+        chmod +x ${{ github.action_path }}/git-push.sh
       shell: bash
     - name: Commit changes
-      run: ${{ github.action_path }}/git-push.sh ${{ steps.git-check.outputs.modified }} ${{ inputs.actor }} ${{ inputs.actor-email }} $(if [[ "${{github.head_ref}}" == '' ]]; then echo 0; else echo "${{github.head_ref}}"; fi) $(if [[ "${{github.base_ref}}" == '' ]]; then echo 0; else echo "${{github.base_ref}}"; fi) $(if [[ "${{github.ref}}" == '' ]]; then echo 0; else echo "${{github.ref}}"; fi) ${{ inputs.strategy-option}} ${{ github.workflow }} ${{ github.run_number }}
+      id: committer
+      run: ${{ github.action_path }}/git-push.sh ${{ inputs.actor }} ${{ inputs.actor-email }} ${{github.head_ref}} ${{github.base_ref}} ${{github.ref}} ${{ inputs.strategy-option}} ${{ github.workflow }} ${{ github.run_number }}
       shell: bash
