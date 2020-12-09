@@ -35,7 +35,11 @@ if [[ $modified != 0 ]]; then
   fi
 
   git add .
-  git commit -a -m "Automated push for workflow: [$7/#$8]"
+  message="Automated push for workflow"
+  if [[ $7 != "" ]] && [[ $8 != "" ]]; then
+    message="Automated push for workflow: [$7/#$8]"
+  fi
+  git commit -a -m "$message"
   echo "[INFO] push to: $3"
   git push origin $3
 fi
