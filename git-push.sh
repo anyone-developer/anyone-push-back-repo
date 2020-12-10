@@ -32,6 +32,7 @@ if [[ $modified -eq 1 ]]; then
   echo "[INFO] checkout branch: $branch"
   git checkout $branch
 
+<<<<<<< HEAD
   echo "[INFO] pull --ff-only from origin $branch"
   git pull --ff-only origin $branch
 
@@ -39,6 +40,10 @@ if [[ $modified -eq 1 ]]; then
     echo "[INFO] rebase from $base_ref with strategy $strategy_option"
     git rebase $base_ref -X $strategy_option
   fi
+=======
+  echo "[INFO] rebase local branch to remote branch: $branch with strategy $strategy_option"
+  git rebase origin/$branch -X$strategy_option
+>>>>>>> 1c8cef2 (fix)
 
   git add .
   message="Automated push for workflow"
