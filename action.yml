@@ -35,13 +35,13 @@ runs:
       shell: bash
     - name: Commit changes
       run: ${{ github.action_path }}/git-push.sh \
-        ${{ steps.status.outputs.modified }} \
-        $(if [[ "${{ inputs.actor }}" == "" ]]; then echo "_"; else echo "${{ inputs.actor }}"; fi) \
-        $(if [[ "${{ inputs.actor-email }}" == "" ]]; then echo "_"; else echo "${{ inputs.actor-email }}"; fi) \
-        $(if [[ "${{github.head_ref}}" == "" ]]; then echo "_"; else echo "${{github.head_ref}}"; fi) \
-        $(if [[ "${{github.base_ref}}" == "" ]]; then echo "_"; else echo "${{github.base_ref}}"; fi) \
-        $(if [[ "${{github.ref}}" == "" ]]; then echo "_"; else echo "${{github.ref}}"; fi) \
-        $(if [[ "${{ inputs.strategy-option }}" == "" ]]; then echo "_"; else echo "${{ inputs.strategy-option }}"; fi) \
-        $(if [[ "${{github.workflow}}" == "" ]]; then echo "_"; else echo "${{github.workflow}}"; fi) \
-        $(if [[ "${{github.run_number}}" == "" ]]; then echo "_"; else echo "${{github.run_number}}"; fi)
+${{ steps.status.outputs.modified }} \
+$(if [[ "${{ inputs.actor }}" == "" ]]; then echo "_"; else echo "${{ inputs.actor }}"; fi) \
+$(if [[ "${{ inputs.actor-email }}" == "" ]]; then echo "_"; else echo "${{ inputs.actor-email }}"; fi) \
+$(if [[ "${{github.head_ref}}" == "" ]]; then echo "_"; else echo "${{github.head_ref}}"; fi) \
+$(if [[ "${{github.base_ref}}" == "" ]]; then echo "_"; else echo "${{github.base_ref}}"; fi) \
+$(if [[ "${{github.ref}}" == "" ]]; then echo "_"; else echo "${{github.ref}}"; fi) \
+$(if [[ "${{ inputs.strategy-option }}" == "" ]]; then echo "_"; else echo "${{ inputs.strategy-option }}"; fi) \
+$(if [[ "${{github.workflow}}" == "" ]]; then echo "_"; else echo "${{github.workflow}}"; fi) \
+$(if [[ "${{github.run_number}}" == "" ]]; then echo "_"; else echo "${{github.run_number}}"; fi)
       shell: bash
