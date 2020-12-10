@@ -21,6 +21,10 @@ if [[ $modified -eq 1 ]]; then
 
   branch=$(echo $ref | cut -d "/" -f 3) #direct to push
 
+  echo "[DEBUG] ref: $ref"
+  echo "[DEBUG] head_ref: $head_ref"
+  echo "[DEBUG] base_ref: $base_ref"
+
   if [[ $head_ref != "_" ]] && [[ $base_ref != "_" ]]; then
     branch=$head_ref #pull request source branch, will rebase to target branch
   fi
