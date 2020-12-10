@@ -28,7 +28,7 @@ if [[ $modified -eq 1 ]]; then
 
   branch=$(echo $ref | cut -d "/" -f 3) #direct to push
 
-  if [[ $head_ref -ne 0 ]] && [[ $base_ref -ne 0 ]]; then
+  if [[ $head_ref != "_" ]] && [[ $base_ref != "_" ]]; then
     branch=$head_ref #pull request source branch, will rebase to target branch
   fi
 
@@ -38,14 +38,14 @@ if [[ $modified -eq 1 ]]; then
   echo "[INFO] pull --ff-only from origin $branch"
   git pull --ff-only origin $branch
 
-  if [[ $head_ref -ne 0 ]] && [[ $base_ref -ne 0 ]]; then
+  if [[ $head_ref != "_" ]] && [[ $base_ref != "_" ]]; then
     echo "[INFO] rebase from $base_ref with strategy $strategy_option"
     git rebase $base_ref -X $strategy_option
   fi
 
   git add .
   message="Automated push for workflow"
-  if [[ $workflow -ne 0 ]] && [[ $run_number -ne 0 ]]; then
+  if [[ $workflow != "_" ]] && [[ $run_number != "_" ]]; then
     message="Automated push for workflow: [$workflow/#$run_number]"
   fi
   git commit -a -m "$message"
