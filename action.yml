@@ -31,9 +31,7 @@ runs:
       shell: bash
     - name: Check status
       id: status
-      run: |
-        ${{ github.action_path }}/git-status.sh
-        echo ::set-output name=modified::$?
+      run: ${{ github.action_path }}/git-status.sh
       shell: bash
     - name: Commit changes
       run: ${{ github.action_path }}/git-push.sh \
