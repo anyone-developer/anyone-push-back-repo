@@ -32,6 +32,9 @@ if [[ $modified -eq 1 ]]; then
   echo "[INFO] checkout branch: $branch"
   git checkout $branch
 
+  echo "[INFO] branch status"
+  git status -sb
+
   git add .
   message="Automated push for workflow"
   if [[ "$workflow" != "_" ]] && [[ "$run_number" != "_" ]]; then

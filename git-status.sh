@@ -13,15 +13,9 @@ function GET_GIT_STATUS()
     if [[ "$tracked" != "" ]]; then
       echo "[INFO] track files:"
       echo "$tracked"
-    fi
-
-    if [[ "$behind" != "" ]]; then
-      echo "[INFO] branch behind:"
-      echo $(git status -sb | sed -n 1p)
-    fi
-
-    if [[ "$ahead" != "" ]]; then
-      echo "[INFO] branch ahead:"
+      
+    if [[ "$behind" != "" ]] || [[ "$ahead" != "" ]]; then
+      echo "[INFO] branch ahead/behind:"
       echo $(git status -sb | sed -n 1p)
     fi
 
