@@ -35,10 +35,10 @@ if [[ $modified -eq 1 ]]; then
   echo "[INFO] pull --ff-only from origin $branch"
   git pull --ff-only origin $branch
 
-  #if [[ "$head_ref" != "_" ]] && [[ "$base_ref" != "_" ]]; then
-  #  echo "[INFO] rebase from $base_ref with strategy $strategy_option"
-  #  git rebase $base_ref -X $strategy_option
-  #fi
+  if [[ "$head_ref" != "_" ]] && [[ "$base_ref" != "_" ]]; then
+    echo "[INFO] rebase from $base_ref with strategy $strategy_option"
+    git rebase $base_ref -X $strategy_option
+  fi
 
   git add .
   message="Automated push for workflow"
