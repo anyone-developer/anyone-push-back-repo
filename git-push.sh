@@ -33,7 +33,7 @@ if [[ $modified -eq 1 ]]; then
   git checkout $branch
 
   echo "[INFO] branch status"
-  git status -sb
+  status=$(git status -sb)
 
   git add .
   message="Automated push for workflow"
