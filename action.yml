@@ -28,9 +28,16 @@ runs:
       run: |
         chmod +x ${{ github.action_path }}/git-status.sh
         chmod +x ${{ github.action_path }}/git-push.sh
-        chmod +x ${{ github.action_path }}/git-action.sh
       shell: bash
     - name: Commit changes
       id: committer
-      run: ${{ github.action_path }}/git-action.sh ${{ inputs.actor }} ${{ inputs.actor-email }} ${{ github.head_ref }} ${{ github.base_ref }} ${{ github.ref }} ${{ inputs.strategy-option }} ${{ github.workflow }} ${{ github.run_number }}
+      run: ${{ github.action_path }}/git-push.sh \
+        $(if [[ "${{ inputs.actor }}" == "" ]]; then echo 0; else echo "${{ inputs.actor }}"; fi) \
+        $(if [[ "${{ inputs.actor-email }}" == "" ]]; then echo 0; else echo "${{ inputs.actor-email }}"; fi) \
+        $(if [[ "${{github.head_ref}}" == "" ]]; then echo 0; else echo "${{github.head_ref}}"; fi) \
+        $(if [[ "${{github.base_ref}}" == "" ]]; then echo 0; else echo "${{github.base_ref}}"; fi) \
+        $(if [[ "${{github.ref}}" == "" ]]; then echo 0; else echo "${{github.ref}}"; fi) \
+        $(if [[ "${{ inputs.strategy-option }}" == "" ]]; then echo 0; else echo "${{ inputs.strategy-option }}"; fi) \
+        $(if [[ "${{github.workflow}}" == "" ]]; then echo 0; else echo "${{github.workflow}}"; fi) \
+        $(if [[ "${{github.run_number}}" == "" ]]; then echo 0; else echo "${{github.run_number}}"; fi)
       shell: bash
