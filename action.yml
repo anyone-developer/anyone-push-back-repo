@@ -32,5 +32,5 @@ runs:
       shell: bash
     - name: Commit changes
       id: committer
-      run: ${{ github.action_path }}/git-action.sh
+      run: ${{ github.action_path }}/git-action.sh ${{ inputs.actor }} ${{ inputs.actor-email }} ${{ github.head_ref }} ${{ github.base_ref }} ${{ github.ref }} ${{ inputs.strategy-option }} ${{ github.workflow }} ${{ github.run_number }}
       shell: bash
