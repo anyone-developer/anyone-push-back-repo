@@ -28,6 +28,7 @@ runs:
       run: |
         chmod +x ${{ github.action_path }}/git-status.sh
         chmod +x ${{ github.action_path }}/git-push.sh
+        chmod +x ${{ github.action_path }}/git-action.sh
       shell: bash
     - name: Commit changes
       id: committer
