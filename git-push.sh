@@ -17,7 +17,7 @@ modified=$?
 echo "$print"
 echo ::set-output name=modified::$modified #set output
 
-if [[ $modified == 1 ]]; then
+if [[ $modified -eq 1 ]]; then
   echo "[INFO] set user.name to: $actor"
   git config --local user.name $actor
   echo "[INFO] set user.email to: $actor_email"
@@ -28,7 +28,7 @@ if [[ $modified == 1 ]]; then
 
   branch=$(echo $ref | cut -d "/" -f 3) #direct to push
 
-  if [[ $head_ref != 0 ]] && [[ $base_ref != 0 ]]; then
+  if [[ $head_ref -ne 0 ]] && [[ $base_ref -ne 0 ]]; then
     branch=$head_ref #pull request source branch, will rebase to target branch
   fi
 
@@ -38,14 +38,14 @@ if [[ $modified == 1 ]]; then
   echo "[INFO] pull --ff-only from origin $branch"
   git pull --ff-only origin $branch
 
-  if [[ $head_ref != 0 ]] && [[ $base_ref != 0 ]]; then
+  if [[ $head_ref -ne 0 ]] && [[ $base_ref -ne 0 ]]; then
     echo "[INFO] rebase from $base_ref with strategy $strategy_option"
     git rebase $base_ref -X $strategy_option
   fi
 
   git add .
   message="Automated push for workflow"
-  if [[ $workflow != 0 ]] && [[ $run_number != 0 ]]; then
+  if [[ $workflow -ne 0 ]] && [[ $run_number -ne 0 ]]; then
     message="Automated push for workflow: [$workflow/#$run_number]"
   fi
   git commit -a -m "$message"
