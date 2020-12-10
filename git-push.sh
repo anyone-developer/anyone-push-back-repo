@@ -1,21 +1,14 @@
 #!/bin/bash
 
-actor=$1
-actor_email=$2
-head_ref=$3
-base_ref=$4
-ref=$5
-strategy_option=$6
-workflow=$7
-run_number=$8
-
-source ./git-status.sh
-
-print=`GET_GIT_STATUS`
-modified=$?
-
-echo "$print"
-echo ::set-output name=modified::$modified #set output
+modified=$1
+actor=$2
+actor_email=$3
+head_ref=$4
+base_ref=$5
+ref=$6
+strategy_option=$7
+workflow=$8
+run_number=$9
 
 if [[ $modified -eq 1 ]]; then
   echo "[INFO] set user.name to: $actor"

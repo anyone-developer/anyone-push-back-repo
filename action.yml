@@ -20,7 +20,7 @@ inputs:
 outputs:
   modified:
     description: 'modified flag 1 as "true" or 0 as "false"'
-    value: ${{ steps.committer.outputs.modified }}
+    value: ${{ steps.status.outputs.modified }}
 runs:
   using: "composite"
   steps:
@@ -29,9 +29,15 @@ runs:
         chmod +x ${{ github.action_path }}/git-status.sh
         chmod +x ${{ github.action_path }}/git-push.sh
       shell: bash
+    - name: Check status
+      id: status
+      run: |
+        ${{ github.action_path }}/git-status.sh
+        echo ::set-output name=modified::$?
+      shell: bash
     - name: Commit changes
-      id: committer
       run: ${{ github.action_path }}/git-push.sh \
+        ${{ steps.status.outputs.modified }} \
         $(if [[ "${{ inputs.actor }}" == "" ]]; then echo "_"; else echo "${{ inputs.actor }}"; fi) \
         $(if [[ "${{ inputs.actor-email }}" == "" ]]; then echo "_"; else echo "${{ inputs.actor-email }}"; fi) \
         $(if [[ "${{github.head_ref}}" == "" ]]; then echo "_"; else echo "${{github.head_ref}}"; fi) \
