@@ -1,6 +1,15 @@
 #!/bin/bash
 
-. ./git-status.sh
+actor=$1
+actor_email=$2
+head_ref=$3
+base_ref=$4
+ref=$5
+strategy_option=$6
+workflow=$7
+run_number=$8
+
+source ./git-status.sh
 
 print=`GET_GIT_STATUS`
 modified=$?
