@@ -32,15 +32,16 @@ if [[ $modified -eq 1 ]]; then
   echo "[INFO] checkout branch: $branch"
   git checkout $branch
 
-  echo "[INFO] rebase local branch to remote branch: $branch with strategy $strategy_option"
-  git rebase origin/$branch -X$strategy_option
-
   git add .
   message="Automated push for workflow"
   if [[ "$workflow" != "_" ]] && [[ "$run_number" != "_" ]]; then
     message="Automated push for workflow: [$workflow/#$run_number]"
   fi
   git commit -a -m "$message"
+
+  echo "[INFO] rebase local branch to remote branch: $branch with strategy $strategy_option"
+  git rebase origin/$branch -X$strategy_option
+
   echo "[INFO] push to: $branch"
   git push origin $branch
 fi
