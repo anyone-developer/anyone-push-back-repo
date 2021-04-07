@@ -10,7 +10,7 @@ This action helps you push back to pull requests when the user made changes in a
 
 *More and more tiny and useful GitHub action modules are on the way. Please donate to me. I accept a part-time job contract. if you need, please contact me: zhang_nan_163@163.com*
 
-## Be noticed
+## Be attention
 
 Before you use this action, you should use **actions/checkout@v2** to check out your repository for this action. checkout v1 probably won't work. I would not guarantee that will work.
 
